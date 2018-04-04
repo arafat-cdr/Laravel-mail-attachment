@@ -79,7 +79,7 @@ class ArafatController extends Controller
            $message->to($request->to)
                    ->subject($request->subject)
                    ->setBody($request->email_body, 'text/html');
-            
+            if($request->file('file')) {
             foreach ($request->file('file') as $file) {
 
               $message->attach($file->getRealPath(), array(
@@ -87,6 +87,7 @@ class ArafatController extends Controller
                         'mime' => $file->getMimeType())
                               );
             } 
+          }
         }, true);
 
       var_dump($res);
